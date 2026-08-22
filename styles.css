@@ -1583,82 +1583,9 @@ body.is-embedded-iframe #hud-controller {
   background: #ffffff;
 }
 
-/* Speaker Navigation Bar (Top Bar en index.html) */
-#speaker-nav-bar {
-  position: fixed;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-full);
-  padding: 5px 8px;
-  z-index: 100;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  max-width: calc(100vw - 30px);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-#speaker-nav-bar::-webkit-scrollbar {
-  display: none;
-}
-
-.speaker-nav-tab {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 13px;
-  border-radius: var(--radius-full);
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #94a3b8;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: var(--transition);
-  text-decoration: none;
-}
-
-.speaker-nav-tab:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.speaker-nav-tab.active {
-  color: #ffffff;
-  background: var(--primary-gradient);
-  box-shadow: 0 4px 15px rgba(0, 82, 212, 0.4);
-}
-
-.speaker-tab-badge {
-  font-size: 10px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-/* Master HUD Controller extensions */
-.hud-btn-active {
-  background: var(--primary) !important;
-  color: #ffffff !important;
-}
-
-.hud-speaker-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #e2e8f0;
-  padding: 0 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Ocultar barra flotante de controles */
+#hud-controller {
+  display: none !important;
 }
 
 .hud-files-menu-modal {
