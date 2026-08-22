@@ -1533,30 +1533,209 @@ html, body {
 }
 
 /* ==========================================================================
-   PRINT STYLES FOR HANDOUT
+   MASTER IFRAME CONTAINER & EMBEDDED MODE STYLES
    ========================================================================== */
-@media print {
-  body, #presentation-container {
-    background: none !important;
-    overflow: visible !important;
-  }
-  #hud-controller, #overview-modal {
-    display: none !important;
-  }
-  #slide-viewport {
-    width: 100% !important;
-    height: auto !important;
-    transform: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-  .slide {
-    position: relative !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    page-break-after: always !important;
-    height: 100vh !important;
-    display: flex !important;
-  }
+
+/* Cuando una diapositiva está embebida en el iframe maestro de index.html */
+body.is-embedded-iframe {
+  background: transparent !important;
+  overflow: hidden !important;
 }
+
+body.is-embedded-iframe #presentation-container {
+  background: transparent !important;
+  width: 1280px !important;
+  height: 720px !important;
+  overflow: hidden !important;
+}
+
+body.is-embedded-iframe #slide-viewport {
+  width: 1280px !important;
+  height: 720px !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.is-embedded-iframe #hud-controller {
+  display: none !important;
+}
+
+/* Master iframe styling en index.html */
+#slide-frame-container {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform-origin: center center;
+  transition: transform 0.15s ease-out;
+  flex-shrink: 0;
+}
+
+#slide-frame {
+  width: 1280px;
+  height: 720px;
+  border: none;
+  display: block;
+  background: #ffffff;
+}
+
+/* Speaker Navigation Bar (Top Bar en index.html) */
+#speaker-nav-bar {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 5px 8px;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  max-width: calc(100vw - 30px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#speaker-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.speaker-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: var(--radius-full);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.speaker-nav-tab:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.speaker-nav-tab.active {
+  color: #ffffff;
+  background: var(--primary-gradient);
+  box-shadow: 0 4px 15px rgba(0, 82, 212, 0.4);
+}
+
+.speaker-tab-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Master HUD Controller extensions */
+.hud-btn-active {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+.hud-speaker-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-files-menu-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 11, 20, 0.88);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-files-menu-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hud-files-card {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 26px;
+  max-width: 680px;
+  width: 90%;
+  color: #ffffff;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.hud-files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hud-file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: var(--transition);
+}
+
+.hud-file-item:hover {
+  background: rgba(0, 82, 212, 0.2);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.hud-file-name {
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-file-meta {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.hud-file-action {
+  font-size: 11px;
+  color: var(--cyan-accent);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+

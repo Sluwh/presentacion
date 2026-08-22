@@ -1,127 +1,262 @@
 /**
- * MIUY STUDIO - PRESENTATION ENGINE & CONTROLLER
- * Clean, lightweight, professional controller for high-stake project defense.
+ * MIUY STUDIO - MASTER PRESENTATION CONTROLLER
+ * Orquestador principal que carga las diapositivas de cada persona mediante iframe.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // State variables
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
+  // Modules metadata
+  const modules = [
+    {
+      id: 'persona1',
+      author: 'Persona 1',
+      title: 'Visión General & Web',
+      file: 'persona1.html',
+      startSlide: 1,
+      endSlide: 6,
+      slidesCount: 6
+    },
+    {
+      id: 'marcel',
+      author: 'Marcel',
+      title: 'Seguridad & Roles',
+      file: 'marcel.html',
+      startSlide: 7,
+      endSlide: 9,
+      slidesCount: 3
+    },
+    {
+      id: 'persona3',
+      author: 'Persona 3',
+      title: 'Inventario de Hardware',
+      file: 'persona3.html',
+      startSlide: 10,
+      endSlide: 13,
+      slidesCount: 4
+    },
+    {
+      id: 'alan',
+      author: 'Alan',
+      title: 'Mesa de Ayuda',
+      file: 'alan.html',
+      startSlide: 14,
+      endSlide: 16,
+      slidesCount: 3
+    },
+    {
+      id: 'emiliano',
+      author: 'Emiliano',
+      title: 'Asignaciones & Métricas',
+      file: 'emiliano.html',
+      startSlide: 17,
+      endSlide: 19,
+      slidesCount: 3
+    },
+    {
+      id: 'samuel',
+      author: 'Samuel',
+      title: 'Arquitectura & Cierre',
+      file: 'samuel.html',
+      startSlide: 20,
+      endSlide: 24,
+      slidesCount: 5
+    }
+  ];
+
+  const totalGlobalSlides = 24;
+  let currentModuleIndex = 0;
+  let currentLocalIndex = 0;
+  let currentGlobalSlide = 1;
+
+  // Slide Titles Directory
+  const slideTitles = {
+    1: '01. Portada: Portal de Gestión de UTU',
+    2: '02. Arquitectura Integral & Módulos del Sistema',
+    3: '03. El Problema Real & Diagnóstico en UTU',
+    4: '04. La Propuesta: Portal Centralizado',
+    5: '05. Sitio Web Corporativo MIUY Studio',
+    6: '06. Recorrido Visual Inicial & Navegación Fluida',
+    7: '07. Acceso & Validación de Identidad por Cédula',
+    8: '08. Gobernanza de Accesos & 3 Roles de Usuario',
+    9: '09. Panel de Control: Gestión de Usuarios',
+    10: '10. Organización & Jerarquía de Hardware',
+    11: '11. Ciclo de Vida & 4 Estados del Hardware',
+    12: '12. Búsqueda Rápida & Filtros Dinámicos',
+    13: '13. Ficha Técnica & Historial del Equipo',
+    14: '14. Mesa de Ayuda: El Lado del Docente',
+    15: '15. Bandeja Técnica & Gestión de Incidencias',
+    16: '16. Flujo de Vida del Ticket: De Apertura a Cierre',
+    17: '17. Módulo de Asignaciones & Préstamos de Equipos',
+    18: '18. Dashboard de Métricas & Analítica Gerencial',
+    19: '19. Toma de Decisiones: ¿Qué Hardware Renovar?',
+    20: '20. Base de Conocimiento: Diagnósticos & Soluciones',
+    21: '21. Stack Tecnológico & Modelo MER Relacional',
+    22: '22. Desafíos Técnicos Superados en el Desarrollo',
+    23: '23. Resultados Obtenidos & Comparativa de Impacto',
+    24: '24. Cierre Oficial & Espacio de Preguntas'
+  };
 
   // DOM Elements
-  const viewport = document.getElementById('slide-viewport');
+  const slideFrame = document.getElementById('slide-frame');
+  const frameContainer = document.getElementById('slide-frame-container');
   const hudSlideIndicator = document.getElementById('hud-slide-indicator');
+  const hudSpeakerLabel = document.getElementById('hud-speaker-label');
   const overviewModal = document.getElementById('overview-modal');
   const overviewGrid = document.getElementById('overview-grid');
+  const filesModal = document.getElementById('files-modal');
 
-  // Auto-fit presentation scaling to window or switch to mobile adaptive layout
-  function resizeViewport() {
+  // Dynamic 16:9 Viewport Scaling
+  function resizeMasterViewport() {
     const stageWidth = window.innerWidth;
     const stageHeight = window.innerHeight;
     const isPortraitMobile = (stageWidth <= 820 && stageHeight >= stageWidth) || stageWidth < 600;
 
+    if (!frameContainer) return;
+
     if (isPortraitMobile) {
       document.body.classList.add('is-mobile-portrait');
-      viewport.style.transform = 'none';
+      frameContainer.style.transform = 'none';
     } else {
       document.body.classList.remove('is-mobile-portrait');
       const targetWidth = 1280;
       const targetHeight = 720;
-      const marginX = stageWidth < 900 ? 10 : 20;
-      const marginY = stageHeight < 600 ? 10 : 20;
+      const marginX = stageWidth < 900 ? 10 : 30;
+      const marginY = stageHeight < 700 ? 30 : 60;
 
       const scaleX = (stageWidth - marginX) / targetWidth;
       const scaleY = (stageHeight - marginY) / targetHeight;
       const scale = Math.min(scaleX, scaleY);
 
-      viewport.style.transform = `scale(${scale})`;
-      viewport.style.transformOrigin = 'center center';
+      frameContainer.style.transform = `scale(${scale})`;
+      frameContainer.style.transformOrigin = 'center center';
     }
   }
 
-  window.addEventListener('resize', resizeViewport);
-  window.addEventListener('orientationchange', () => {
-    setTimeout(resizeViewport, 100);
-  });
-  resizeViewport();
+  window.addEventListener('resize', resizeMasterViewport);
+  window.addEventListener('orientationchange', () => setTimeout(resizeMasterViewport, 100));
+  resizeMasterViewport();
 
-  // Navigation Logic
-  function goToSlide(index) {
-    if (index < 0 || index >= totalSlides) return;
-
-    slides.forEach((s, idx) => {
-      s.classList.remove('active', 'exit-left');
-      if (idx < index) {
-        s.classList.add('exit-left');
+  // Helper: Find module by global slide number (1..24)
+  function getModuleForGlobalSlide(globalNum) {
+    for (let i = 0; i < modules.length; i++) {
+      if (globalNum >= modules[i].startSlide && globalNum <= modules[i].endSlide) {
+        return {
+          moduleIndex: i,
+          module: modules[i],
+          localIndex: globalNum - modules[i].startSlide
+        };
       }
-    });
+    }
+    return { moduleIndex: 0, module: modules[0], localIndex: 0 };
+  }
 
-    currentSlide = index;
-    slides[currentSlide].classList.add('active');
+  // Load a module file
+  function loadModule(modIdx, targetLocalIndex = 0) {
+    if (modIdx < 0 || modIdx >= modules.length) return;
 
-    // Scroll to top on mobile when changing slide
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    const presContainer = document.getElementById('presentation-container');
-    if (presContainer) presContainer.scrollTop = 0;
+    const mod = modules[modIdx];
+    currentModuleIndex = modIdx;
+    currentLocalIndex = targetLocalIndex;
+    currentGlobalSlide = mod.startSlide + targetLocalIndex;
 
-    // Update HUD indicator
+    updateUI();
+
+    const targetSrc = `${mod.file}#slide-${targetLocalIndex + 1}`;
+    const currentSrc = slideFrame.getAttribute('src');
+
+    if (!currentSrc || !currentSrc.startsWith(mod.file)) {
+      slideFrame.src = targetSrc;
+    } else {
+      if (slideFrame.contentWindow) {
+        slideFrame.contentWindow.postMessage({
+          type: 'GO_TO_LOCAL_SLIDE',
+          slideIndex: targetLocalIndex
+        }, '*');
+      }
+    }
+  }
+
+  // Global Navigation
+  function goToGlobalSlide(globalNum) {
+    if (globalNum < 1) globalNum = 1;
+    if (globalNum > totalGlobalSlides) globalNum = totalGlobalSlides;
+
+    const info = getModuleForGlobalSlide(globalNum);
+    loadModule(info.moduleIndex, info.localIndex);
+  }
+
+  function nextGlobalSlide() {
+    if (currentGlobalSlide < totalGlobalSlides) {
+      goToGlobalSlide(currentGlobalSlide + 1);
+    }
+  }
+
+  function prevGlobalSlide() {
+    if (currentGlobalSlide > 1) {
+      goToGlobalSlide(currentGlobalSlide - 1);
+    }
+  }
+
+  // Update UI Elements
+  function updateUI() {
+    const mod = modules[currentModuleIndex];
+
     if (hudSlideIndicator) {
-      hudSlideIndicator.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      hudSlideIndicator.textContent = `${String(currentGlobalSlide).padStart(2, '0')} / ${String(totalGlobalSlides).padStart(2, '0')}`;
     }
 
-    // Highlight thumbnail in overview modal if open
+    if (hudSpeakerLabel) {
+      hudSpeakerLabel.innerHTML = `<strong>MIUY Studio</strong> • ${mod.title}`;
+    }
+
     const thumbs = document.querySelectorAll('.overview-thumb');
     thumbs.forEach((t, i) => {
-      t.classList.toggle('current', i === currentSlide);
+      t.classList.toggle('current', (i + 1) === currentGlobalSlide);
     });
   }
 
-  function nextSlide() {
-    if (currentSlide < totalSlides - 1) {
-      goToSlide(currentSlide + 1);
+  // Listen to postMessage from embedded slide deck
+  window.addEventListener('message', (e) => {
+    if (!e.data || typeof e.data !== 'object') return;
+
+    if (e.data.type === 'SLIDE_CHANGED') {
+      currentLocalIndex = e.data.localIndex;
+      currentGlobalSlide = modules[currentModuleIndex].startSlide + currentLocalIndex;
+      updateUI();
+    } else if (e.data.type === 'REQUEST_NEXT_SPEAKER') {
+      if (currentModuleIndex < modules.length - 1) {
+        loadModule(currentModuleIndex + 1, 0);
+      }
+    } else if (e.data.type === 'REQUEST_PREV_SPEAKER') {
+      if (currentModuleIndex > 0) {
+        const prevMod = modules[currentModuleIndex - 1];
+        loadModule(currentModuleIndex - 1, prevMod.slidesCount - 1);
+      }
     }
-  }
+  });
 
-  function prevSlide() {
-    if (currentSlide > 0) {
-      goToSlide(currentSlide - 1);
-    }
-  }
-
-  // Overview Grid System
-  const speakerBySection = {
-    '1': 'Persona 1 • Módulo 1',
-    '2': 'Marcel • Módulo 2',
-    '3': 'Persona 3 • Módulo 3',
-    '4': 'Alan • Módulo 4',
-    '5': 'Emiliano • Módulo 5',
-    '6': 'Samuel • Módulo 6'
-  };
-
+  // Build Overview Grid
   function buildOverviewGrid() {
     overviewGrid.innerHTML = '';
-    slides.forEach((s, idx) => {
-      const titleEl = s.querySelector('.slide-title');
-      const titleText = titleEl ? titleEl.innerText.replace(/\n/g, ' ') : `Diapositiva ${idx + 1}`;
-      const sectionNum = s.getAttribute('data-section') || '1';
-      const speakerName = speakerBySection[sectionNum] || `Módulo ${sectionNum}`;
+
+    for (let sNum = 1; sNum <= totalGlobalSlides; sNum++) {
+      const info = getModuleForGlobalSlide(sNum);
+      const titleText = slideTitles[sNum] || `Diapositiva ${sNum}`;
 
       const thumb = document.createElement('div');
-      thumb.className = `overview-thumb ${idx === currentSlide ? 'current' : ''}`;
+      thumb.className = `overview-thumb ${sNum === currentGlobalSlide ? 'current' : ''}`;
       thumb.innerHTML = `
-        <div class="thumb-num">${String(idx + 1).padStart(2, '0')}</div>
+        <div class="thumb-num">${String(sNum).padStart(2, '0')}</div>
         <div class="thumb-title">${titleText}</div>
-        <div class="thumb-speaker">${speakerName}</div>
+        <div class="thumb-speaker">${info.module.title}</div>
       `;
 
       thumb.addEventListener('click', () => {
-        goToSlide(idx);
+        goToGlobalSlide(sNum);
         overviewModal.classList.remove('open');
       });
 
       overviewGrid.appendChild(thumb);
-    });
+    }
   }
 
   function toggleOverviewModal() {
@@ -129,24 +264,33 @@ document.addEventListener('DOMContentLoaded', () => {
     overviewModal.classList.toggle('open');
   }
 
-  // Fullscreen
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(err => {
-        console.warn('Fullscreen error:', err);
-      });
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+  function toggleFilesModal() {
+    if (filesModal) {
+      filesModal.classList.toggle('open');
     }
   }
 
-  // Keyboard Navigation & Shortcuts
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => console.warn(err));
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (overviewModal.classList.contains('open')) {
+    if (overviewModal && overviewModal.classList.contains('open')) {
       if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
         overviewModal.classList.remove('open');
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (filesModal && filesModal.classList.contains('open')) {
+      if (e.key === 'Escape' || e.key === 'e' || e.key === 'E') {
+        filesModal.classList.remove('open');
         e.preventDefault();
       }
       return;
@@ -158,26 +302,31 @@ document.addEventListener('DOMContentLoaded', () => {
       case ' ':
       case 'PageDown':
         e.preventDefault();
-        nextSlide();
+        nextGlobalSlide();
         break;
       case 'ArrowLeft':
       case 'ArrowUp':
       case 'PageUp':
         e.preventDefault();
-        prevSlide();
+        prevGlobalSlide();
         break;
       case 'Home':
         e.preventDefault();
-        goToSlide(0);
+        goToGlobalSlide(1);
         break;
       case 'End':
         e.preventDefault();
-        goToSlide(totalSlides - 1);
+        goToGlobalSlide(totalGlobalSlides);
         break;
       case 'o':
       case 'O':
         e.preventDefault();
         toggleOverviewModal();
+        break;
+      case 'e':
+      case 'E':
+        e.preventDefault();
+        toggleFilesModal();
         break;
       case 'f':
       case 'F':
@@ -187,195 +336,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // HUD Button Click Listeners
+  // Master HUD Buttons
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
   const btnOverview = document.getElementById('btn-overview-toggle');
   const btnFullscreen = document.getElementById('btn-fullscreen');
+  const btnFiles = document.getElementById('btn-files-toggle');
   const btnCloseOverview = document.getElementById('close-overview-btn');
+  const btnCloseFiles = document.getElementById('close-files-btn');
 
-  if (btnPrev) btnPrev.addEventListener('click', prevSlide);
-  if (btnNext) btnNext.addEventListener('click', nextSlide);
+  if (btnPrev) btnPrev.addEventListener('click', prevGlobalSlide);
+  if (btnNext) btnNext.addEventListener('click', nextGlobalSlide);
   if (btnOverview) btnOverview.addEventListener('click', toggleOverviewModal);
   if (btnFullscreen) btnFullscreen.addEventListener('click', toggleFullscreen);
+  if (btnFiles) btnFiles.addEventListener('click', toggleFilesModal);
+
   if (btnCloseOverview) btnCloseOverview.addEventListener('click', () => {
     overviewModal.classList.remove('open');
   });
 
-  // Mobile Touch Swipe Gesture Support
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchEndX = 0;
-  let touchEndY = 0;
+  if (btnCloseFiles) btnCloseFiles.addEventListener('click', () => {
+    filesModal.classList.remove('open');
+  });
 
-  window.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-
-  window.addEventListener('touchend', (e) => {
-    if (e.changedTouches.length === 1) {
-      touchEndX = e.changedTouches[0].clientX;
-      touchEndY = e.changedTouches[0].clientY;
-      handleSwipe();
-    }
-  }, { passive: true });
-
-  function handleSwipe() {
-    if (overviewModal.classList.contains('open')) return;
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
-
-    // Detect horizontal swipe if deltaX is dominant (> 45px and > 1.5 * deltaY)
-    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
-      if (deltaX < 0) {
-        nextSlide();
-      } else {
-        prevSlide();
-      }
-    }
-  }
-
-  // -------------------------------------------------------------
-  // INTERACTIVE LIVE DEMO LOGIC (Clean & Professional)
-  // -------------------------------------------------------------
-
-  // 1. Interactive MER Diagram Inspector
-  window.inspectMerEntity = function(entityName) {
-    const detailsBox = document.getElementById('mer-entity-details');
-    const entities = document.querySelectorAll('.mer-table-entity');
-    entities.forEach(el => el.classList.remove('highlighted'));
-
-    const clickedEl = document.querySelector(`[data-entity="${entityName}"]`);
-    if (clickedEl) clickedEl.classList.add('highlighted');
-
-    const entityData = {
-      'usuario': {
-        name: 'usuario (Entidad Centralizada)',
-        desc: 'Unifica perfiles de Administrador, Técnico y Solicitante en una sola estructura. Centraliza la autenticación mediante hash seguro y minimiza duplicidad.',
-        fks: 'Clave Primaria: cedula (INT 11) | Rol ENUM (1: Admin, 2: Técnico, 3: Solicitante).'
-      },
-      'equipo': {
-        name: 'equipo (Inventario de Activos)',
-        desc: 'Registra el hardware corporativo con número de serie alfanumérico VARCHAR(100), tipo, marca, modelo y estado físico controlado por motor relacional.',
-        fks: 'Clave Primaria: numero_serie | Estados: disponible, en_uso, en_mantenimiento, de_baja.'
-      },
-      'asignacion': {
-        name: 'asignacion (Historial de Custodia)',
-        desc: 'Permite auditoría patrimonial: vincula cada máquina al funcionario receptor con fecha_inicio y fecha_fin (NULL = custodia activa).',
-        fks: 'Claves Foráneas: numserie_equipo → equipo.numero_serie | cedula_usuario → usuario.cedula'
-      },
-      'ticket': {
-        name: 'ticket (Mesa de Ayuda)',
-        desc: 'Gestiona el ciclo de vida de incidentes de soporte técnico. Permite técnico nullable (0..1) al ingreso y asociación opcional a un activo físico.',
-        fks: 'Claves Foráneas: cedula_solicitante (NOT NULL) | cedula_tecnico (NULLABLE) | numserie_equipo (NULLABLE)'
-      },
-      'actuacion': {
-        name: 'actuacion (Base de Conocimiento)',
-        desc: 'Almacena intervenciones técnicas, diagnósticos detallados y notas de resolución por incidencia con estampas de tiempo.',
-        fks: 'Claves Foráneas: id_ticket → ticket.id | cedula_tecnico → usuario.cedula'
-      },
-      'movimiento_equipo': {
-        name: 'movimiento_equipo (Auditoría de Activos)',
-        desc: 'Bitácora exhaustiva de cambios de estado (alta, baja, asignación, retiro, mantenimiento) para prevenir extravíos.',
-        fks: 'Claves Foráneas: numserie_equipo → equipo.numero_serie | cedula_tecnico → usuario.cedula'
-      }
-    };
-
-    const data = entityData[entityName];
-    if (data && detailsBox) {
-      detailsBox.innerHTML = `
-        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:10px 14px;">
-          <div style="color:var(--primary); font-size:13px; font-weight:800; margin-bottom:3px; font-family:var(--font-display);"><i class="fa-solid fa-table"></i> ${data.name}</div>
-          <p style="font-size:12px; color:#334155; margin-bottom:4px; line-height:1.4;">${data.desc}</p>
-          <div style="font-size:10.5px; font-family:var(--font-mono); color:#0284c7; font-weight:600;">${data.fks}</div>
-        </div>
-      `;
-    }
-  };
-
-  // 2. Interactive Ticket Workflow Simulator
-  let simCurrentStep = 1;
-  window.nextWorkflowStep = function() {
-    simCurrentStep = (simCurrentStep % 3) + 1;
-    updateWorkflowDisplay();
-  };
-
-  function updateWorkflowDisplay() {
-    const steps = document.querySelectorAll('.workflow-step-item');
-    const simBox = document.getElementById('ticket-sim-preview');
-    if (!steps.length || !simBox) return;
-
-    steps.forEach((st, idx) => {
-      st.classList.toggle('active-step', (idx + 1) === simCurrentStep);
-    });
-
-    if (simCurrentStep === 1) {
-      simBox.innerHTML = `
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:12px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-            <span style="font-weight:800; color:#b91c1c; font-size:11.5px;"><i class="fa-solid fa-circle-dot"></i> TICKET #104 - PENDIENTE</span>
-            <span style="font-size:10.5px; color:#64748b;">Solicitante: Juan Pérez (C.I. 4.892.110)</span>
-          </div>
-          <p style="font-size:12.5px; font-weight:600; color:#1e293b;">"Impresora de Dirección no responde en red"</p>
-          <p style="font-size:11px; color:#64748b; margin-top:3px;">Asignado a: <em>Sin técnico asignado</em> | Equipo: IMP-KYOCERA-09</p>
-        </div>
-      `;
-    } else if (simCurrentStep === 2) {
-      simBox.innerHTML = `
-        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-            <span style="font-weight:800; color:#0284c7; font-size:11.5px;"><i class="fa-solid fa-spinner"></i> TICKET #104 - EN PROCESO</span>
-            <span style="font-size:10.5px; color:#64748b;">Técnico asignado: Soporte TI Sabat</span>
-          </div>
-          <p style="font-size:12.5px; font-weight:600; color:#1e293b;">Diagnóstico: Conflicto de IP estática tras reinicio de switch.</p>
-          <p style="font-size:11px; color:#2563eb; margin-top:3px;">Actuación técnica registrada: "Se renueva concesión DHCP y prueba de ping exitosa."</p>
-        </div>
-      `;
-    } else if (simCurrentStep === 3) {
-      simBox.innerHTML = `
-        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:12px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-            <span style="font-weight:800; color:#166534; font-size:11.5px;"><i class="fa-solid fa-circle-check"></i> TICKET #104 - RESUELTO</span>
-            <span style="font-size:10.5px; color:#166534; font-weight:700;">Tiempo Total: 32 min</span>
-          </div>
-          <p style="font-size:12.5px; font-weight:600; color:#14532d;">Solución ingresada a Base de Conocimiento y equipo operativo.</p>
-          <p style="font-size:11px; color:#15803d; margin-top:3px;">Notificación enviada al solicitante | Movimiento registrado en auditoría.</p>
-        </div>
-      `;
-    }
-  }
-
-  // 3. Interactive Bilingual Toggle Demo (ES / EN)
-  let currentDemoLang = 'es';
-  window.toggleDemoLang = function() {
-    currentDemoLang = (currentDemoLang === 'es') ? 'en' : 'es';
-    const langBtnText = document.getElementById('btn-lang-text');
-    const tTitle = document.getElementById('demo-text-title');
-    const tSub = document.getElementById('demo-text-sub');
-    const tNav1 = document.getElementById('demo-text-nav1');
-    const tNav2 = document.getElementById('demo-text-nav2');
-    const tNav3 = document.getElementById('demo-text-nav3');
-
-    if (currentDemoLang === 'es') {
-      if (langBtnText) langBtnText.textContent = 'Idioma: Español (Clic para Inglés)';
-      if (tTitle) tTitle.textContent = 'Portal de Gestión de Recursos y TI';
-      if (tSub) tSub.textContent = 'Bienvenido a la plataforma institucional centralizada';
-      if (tNav1) tNav1.textContent = 'Inventario';
-      if (tNav2) tNav2.textContent = 'Mesa de Ayuda';
-      if (tNav3) tNav3.textContent = 'Métricas';
-    } else {
-      if (langBtnText) langBtnText.textContent = 'Language: English (Click for Spanish)';
-      if (tTitle) tTitle.textContent = 'IT Resource & Support Management Portal';
-      if (tSub) tSub.textContent = 'Welcome to the centralized institutional platform';
-      if (tNav1) tNav1.textContent = 'Inventory';
-      if (tNav2) tNav2.textContent = 'Helpdesk';
-      if (tNav3) tNav3.textContent = 'Analytics';
-    }
-  };
-
-  // Initial load
-  goToSlide(0);
+  // Initialize: load first module
+  loadModule(0, 0);
 });

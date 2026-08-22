@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samuel - Base de Conocimiento & Cierre | MIUY Studio • Portal UTU</title>
+  
+  <!-- FontAwesome 6 & Estilos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="speaker-page">
+
+<div id="presentation-container">
+  
+  <!-- MAIN SLIDE VIEWPORT (16:9 1280x720) -->
+  <div id="slide-viewport">
+
+    <!-- SLIDE 20: BASE DE CONOCIMIENTO -->
+    <section class="slide active" data-slide="20">
+      <div class="slide-bg-decor">
+        <div class="blob-bottom-right"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Base de Conocimiento</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-book-bookmark"></i> Diagnósticos
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="slide-title-area">
+            <div class="slide-number-label">20.</div>
+            <h2 class="slide-title">Base de Conocimiento: <span class="highlight">Diagnósticos & Soluciones</span></h2>
+            <p class="slide-subtitle">Registro de procedimientos exitosos para resolver incidencias recurrentes en minutos.</p>
+          </div>
+
+          <div class="cards-grid-2">
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-stethoscope"></i></div>
+              <div class="feature-title">Bitácora de Diagnósticos</div>
+              <div class="feature-desc">Registro detallado de pruebas físicas (RAM, disco, placa) y causa raíz detectada.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-book-bookmark"></i></div>
+              <div class="feature-title">Soluciones Reutilizables</div>
+              <div class="feature-desc">Catálogo de actuaciones para reinstalación de SO, configuración de red e impresoras.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <div class="feature-title">Ahorro de Tiempo Técnico</div>
+              <div class="feature-desc">Evita repetir análisis ante fallas comunes y acelera la inducción de nuevos técnicos.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-shield-virus"></i></div>
+              <div class="feature-title">Prevención de Recidivas</div>
+              <div class="feature-desc">Alertas automáticas ante máquinas que ingresan a taller por la misma falla reiterada.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:16px; padding:18px; box-shadow:var(--shadow-sm); width:100%;">
+            <div style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:6px;"><i class="fa-solid fa-lightbulb"></i> Capitalización del Saber Técnico</div>
+            <p style="font-size:11.5px; color:#475569; line-height:1.45;">
+              Si un técnico rota de horario o deja la institución, el conocimiento acumulado permanece 100% disponible en la plataforma.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Base de Soluciones</span></div>
+        <div class="footer-pagination"><span class="page-cur">20</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: STACK Y MER -->
+    <section class="slide" data-slide="21">
+      <div class="slide-bg-decor">
+        <div class="blob-corner-right"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Arquitectura de Software</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-database"></i> Modelo MER
+        </div>
+      </div>
+
+      <div class="slide-body" style="flex-direction:column; align-items:flex-start;">
+        <div class="slide-title-area" style="display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+          <div>
+            <div class="slide-number-label">21.</div>
+            <h2 class="slide-title">Stack Tecnológico & <span class="highlight">Modelo MER de Base de Datos</span></h2>
+            <p class="slide-subtitle">Arquitectura modular relacional en MySQL con claves foráneas estrictas y consultas preparadas.</p>
+          </div>
+          <div style="font-size:11px; color:#0284c7; font-weight:700; background:#e0f2fe; padding:4px 10px; border-radius:6px;">
+            <i class="fa-solid fa-arrow-pointer"></i> Interactivo
+          </div>
+        </div>
+
+        <div class="mer-diagram-box">
+          <div class="mer-table-entity" data-entity="usuario" onclick="inspectMerEntity('usuario')">
+            <div class="mer-entity-header"><span>USUARIOS</span><i class="fa-solid fa-users"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_usuario (PK AUTO)</span>
+              <span class="mer-col-fk">ci (UNIQUE), nombre, apellido</span>
+              <span>contrasena (HASH), id_rol (FK)</span>
+            </div>
+          </div>
+
+          <div class="mer-table-entity" data-entity="equipo" onclick="inspectMerEntity('equipo')">
+            <div class="mer-entity-header"><span>EQUIPOS</span><i class="fa-solid fa-laptop"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_equipo (PK AUTO)</span>
+              <span class="mer-col-fk">numero_serie (VARCHAR)</span>
+              <span>id_categoria (FK), estado ENUM</span>
+            </div>
+          </div>
+
+          <div class="mer-table-entity" data-entity="asignacion" onclick="inspectMerEntity('asignacion')">
+            <div class="mer-entity-header"><span>ASIGNACIONES</span><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_asignacion (PK AUTO)</span>
+              <span class="mer-col-fk">id_equipo (FK) → equipos</span>
+              <span class="mer-col-fk">id_usuario (FK) → usuarios</span>
+              <span>fecha_inicio, fecha_fin (NULL)</span>
+            </div>
+          </div>
+
+          <div class="mer-table-entity" data-entity="ticket" onclick="inspectMerEntity('ticket')">
+            <div class="mer-entity-header"><span>TICKETS</span><i class="fa-solid fa-ticket"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_ticket (PK AUTO)</span>
+              <span class="mer-col-fk">id_solicitante (FK), id_tecnico (FK)</span>
+              <span>id_equipo (FK, NULL), estado ENUM</span>
+            </div>
+          </div>
+
+          <div class="mer-table-entity" data-entity="actuacion" onclick="inspectMerEntity('actuacion')">
+            <div class="mer-entity-header"><span>DIAGNOSTICOS</span><i class="fa-solid fa-stethoscope"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_diagnostico (PK AUTO)</span>
+              <span class="mer-col-fk">id_ticket (FK), id_tecnico (FK)</span>
+              <span>diagnostico, solucion_aplicada</span>
+            </div>
+          </div>
+
+          <div class="mer-table-entity" data-entity="movimiento_equipo" onclick="inspectMerEntity('movimiento_equipo')">
+            <div class="mer-entity-header"><span>CATEGORIAS</span><i class="fa-solid fa-tags"></i></div>
+            <div class="mer-entity-body">
+              <span class="mer-col-pk"><i class="fa-solid fa-key"></i> id_categoria (PK AUTO)</span>
+              <span class="mer-col-fk">nombre_categoria (UNIQUE)</span>
+              <span>descripcion VARCHAR(255)</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="mer-entity-details" style="width:100%; margin-top:8px;">
+          <div style="background:#f1f5f9; border-radius:8px; padding:7px 12px; font-size:11.5px; color:#475569;">
+            <i class="fa-solid fa-info-circle" style="color:var(--primary);"></i> <em>Haz clic sobre cualquier tabla del diagrama para inspeccionar su diseño relacional.</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Arquitectura & MER</span></div>
+        <div class="footer-pagination"><span class="page-cur">21</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: DESAFÍOS TÉCNICOS -->
+    <section class="slide" data-slide="22">
+      <div class="slide-bg-decor">
+        <div class="blob-left-accent"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Ingeniería & Retos</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-gears"></i> Retos Técnicos
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="slide-title-area">
+            <div class="slide-number-label">22.</div>
+            <h2 class="slide-title">Desafíos Técnicos <span class="highlight">Superados en el Desarrollo</span></h2>
+            <p class="slide-subtitle">Soluciones de ingeniería implementadas ante la complejidad técnica del proyecto.</p>
+          </div>
+
+          <div class="cards-grid-2">
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-code-merge"></i></div>
+              <div class="feature-title">Lógica de Estados Sincronizados</div>
+              <div class="feature-desc">Sincronización bidireccional entre la asignación de hardware y los tickets de mesa de ayuda.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-lock"></i></div>
+              <div class="feature-title">Permisos Estrictos por Rol</div>
+              <div class="feature-desc">Blindaje de endpoints para evitar accesos no autorizados mediante validación de sesión.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-filter"></i></div>
+              <div class="feature-title">Filtros Dinámicos en Cascada</div>
+              <div class="feature-desc">Carga fluida de categorías, marcas y modelos con JavaScript nativo sin librerías pesadas.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box"><i class="fa-solid fa-globe"></i></div>
+              <div class="feature-title">Soporte Bilingüe (i18n)</div>
+              <div class="feature-desc">Motor de traducción inmediata entre Español e Inglés con persistencia dinámica.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:16px; padding:18px; box-shadow:var(--shadow-sm); width:100%;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span id="demo-text-title" style="font-family:var(--font-display); font-size:14.5px; font-weight:800; color:var(--primary);">Portal de Gestión de Recursos y TI</span>
+              <span style="font-size:10.5px; font-weight:700; background:#e0f2fe; color:#0284c7; padding:2px 6px; border-radius:4px;">i18n Live</span>
+            </div>
+            <p id="demo-text-sub" style="font-size:11.5px; color:#64748b; margin-bottom:10px;">Bienvenido a la plataforma institucional centralizada</p>
+            <div style="display:flex; gap:6px; margin-bottom:12px;">
+              <span id="demo-text-nav1" style="background:#f1f5f9; padding:4px 8px; border-radius:5px; font-size:10.5px; font-weight:700; color:#1e293b;">Inventario</span>
+              <span id="demo-text-nav2" style="background:#f1f5f9; padding:4px 8px; border-radius:5px; font-size:10.5px; font-weight:700; color:#1e293b;">Mesa de Ayuda</span>
+              <span id="demo-text-nav3" style="background:#f1f5f9; padding:4px 8px; border-radius:5px; font-size:10.5px; font-weight:700; color:#1e293b;">Métricas</span>
+            </div>
+            <button id="btn-lang-demo" class="hud-btn" onclick="toggleDemoLang()" style="background:var(--primary); color:#fff; font-weight:700; font-size:11px; padding:6px 12px; border-radius:6px; width:100%; justify-content:center;">
+              <i class="fa-solid fa-language"></i> <span id="btn-lang-text">Alternar Idioma (Español / English)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Retos Técnicos</span></div>
+        <div class="footer-pagination"><span class="page-cur">22</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: RESULTADOS OBTENIDOS -->
+    <section class="slide" data-slide="23">
+      <div class="slide-bg-decor">
+        <div class="blob-bottom-right"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Validación Final</span>
+        </div>
+        <div class="section-tag" style="background:#f0fdf4; color:#166534; font-weight:700;">
+          <i class="fa-solid fa-chart-line"></i> Impacto
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="slide-title-area">
+            <div class="slide-number-label">23.</div>
+            <h2 class="slide-title">Resultados Obtenidos & <span class="highlight">Antes vs Ahora</span></h2>
+            <p class="slide-subtitle">Validación práctica y cumplimiento del 100% de los requerimientos fijados.</p>
+          </div>
+
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:12px; box-shadow:var(--shadow-sm);">
+            <table style="width:100%; border-collapse:collapse; font-size:11.5px; text-align:left;">
+              <thead>
+                <tr style="background:#f8fafc; color:#1e293b;">
+                  <th style="padding:5px 8px;">Área</th>
+                  <th style="padding:5px 8px; color:#ef4444;">Antes (Sin Sistema)</th>
+                  <th style="padding:5px 8px; color:#166534;">Ahora (Con Portal UTU)</th>
+                </tr>
+              </thead>
+              <tbody style="color:#475569;">
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:5px 8px; font-weight:700;">Inventario</td>
+                  <td style="padding:5px 8px;">Planillas Excel desincronizadas</td>
+                  <td style="padding:5px 8px; font-weight:700; color:#15803d;">Base de datos centralizada e inmutable</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:5px 8px; font-weight:700;">Trazabilidad</td>
+                  <td style="padding:5px 8px;">Pérdida de historial de equipos</td>
+                  <td style="padding:5px 8px; font-weight:700; color:#15803d;">100% de préstamos auditados con fecha</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:5px 8px; font-weight:700;">Mesa de Ayuda</td>
+                  <td style="padding:5px 8px;">Pedidos verbales sin prioridad</td>
+                  <td style="padding:5px 8px; font-weight:700; color:#15803d;">Tickets formalizados con ciclo de vida</td>
+                </tr>
+                <tr>
+                  <td style="padding:5px 8px; font-weight:700;">Decisiones</td>
+                  <td style="padding:5px 8px;">Estimaciones sin sustento</td>
+                  <td style="padding:5px 8px; font-weight:700; color:#15803d;">Dashboard analítico y KPIs en tiempo real</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="feature-card" style="background:#f0fdf4; border:1px solid #bbf7d0; text-align:center; padding:18px; width:100%;">
+            <div style="font-size:28px; color:#166534; margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-family:var(--font-display); font-size:15px; font-weight:800; color:#14532d;">Objetivos 100% Cumplidos</div>
+            <p style="font-size:11.5px; color:#15803d; margin-top:4px; line-height:1.4;">
+              El sistema se encuentra 100% operativo, probado y listo para su implantación institucional en centros educativos y empresas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Resultados</span></div>
+        <div class="footer-pagination"><span class="page-cur">23</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: CIERRE Y DEMOSTRACIÓN -->
+    <section class="slide slide-closing" data-slide="24">
+      <div class="slide-bg-decor">
+        <div class="blob-corner-right"></div>
+        <div class="circle-ring-sm"></div>
+        <div class="diamond-accent" style="top: 140px; right: 420px;"></div>
+        <div class="plus-accent" style="bottom: 120px; right: 160px;">+</div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Conclusión</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-comments"></i> Preguntas
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="hero-badge">
+            <i class="fa-solid fa-rocket"></i> Proyecto Final • Tecnologías de la Información
+          </div>
+          <h1 class="hero-main-title">
+            ¡Muchas Gracias por su <span class="highlight">Atención!</span>
+          </h1>
+          <p class="hero-subtitle">
+            El sistema se encuentra 100% funcional y listo para su despliegue en entornos de producción institucionales y corporativos.
+          </p>
+
+          <div class="closing-qa-box">
+            <div class="closing-qa-header">
+              <div class="qa-icon-circle"><i class="fa-solid fa-comments"></i></div>
+              <div>
+                <div class="qa-title">Espacio Abierto para Preguntas & Demostración en Vivo</div>
+                <div class="qa-desc">Todo el equipo de desarrollo queda a entera disposición para responder consultas y recorrer el sistema en funcionamiento.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="closing-card">
+            <div class="closing-logo-wrapper">
+              <img src="assets/utu.png" alt="UTU Florida" class="closing-logo" onerror="this.style.display='none'">
+            </div>
+            <div class="closing-brand-name">MIUY STUDIO</div>
+            <div class="closing-specialty-tag">Portal de Gestión de Recursos TI</div>
+            <div class="closing-location">
+              <i class="fa-solid fa-location-dot"></i> Escuela Técnica de Florida • Uruguay
+            </div>
+            <div class="closing-status-pill">
+              <span class="pulse-dot"></span> Plataforma Lista para Producción
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • MIUY Studio</span></div>
+        <div class="footer-pagination"><span class="page-cur">24</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- HUD CONTROLLER LOCAL -->
+  <div id="hud-controller" class="speaker-hud">
+    <a href="index.html" class="hud-btn hud-home-btn" title="Volver a la Presentación General" target="_top">
+      <i class="fa-solid fa-house"></i> <span>General</span>
+    </a>
+    <button class="hud-btn" id="btn-prev" title="Anterior (← o RePág)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div id="hud-slide-indicator" class="hud-slide-indicator">01 / 01</div>
+    <button class="hud-btn" id="btn-next" title="Siguiente (→, Espacio o AvPág)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button class="hud-btn" id="btn-fullscreen" title="Pantalla Completa (Tecla F)">
+      <i class="fa-solid fa-expand"></i>
+    </button>
+  </div>
+
+</div>
+
+<script src="deck-common.js"></script>
+</body>
+</html>

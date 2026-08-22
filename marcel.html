@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcel - Autenticación & Seguridad | MIUY Studio • Portal UTU</title>
+  
+  <!-- FontAwesome 6 & Estilos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="speaker-page">
+
+<div id="presentation-container">
+  
+  <!-- MAIN SLIDE VIEWPORT (16:9 1280x720) -->
+  <div id="slide-viewport">
+
+    <!-- SLIDE 07: ACCESO Y VALIDACIÓN -->
+    <section class="slide active" data-slide="7">
+      <div class="slide-bg-decor">
+        <div class="blob-bottom-right"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Seguridad & Autenticación</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-shield-halved"></i> Control de Acceso
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="slide-title-area">
+            <div class="slide-number-label">07.</div>
+            <h2 class="slide-title">Acceso & Validación de <span class="highlight">Identidad por Cédula</span></h2>
+            <p class="slide-subtitle">Protocolo de inicio de sesión riguroso con validaciones numéricas y cifrado seguro.</p>
+          </div>
+
+          <ul class="custom-list">
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-id-card"></i></span>
+              <div><strong>Cédula de Identidad (CI):</strong> Identificador único del funcionario sin puntos ni guiones, validado con expresiones regulares.</div>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-lock"></i></span>
+              <div><strong>Contraseña Cifrada con Hash:</strong> Almacenamiento seguro en la base de datos protegiendo las credenciales.</div>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-cookie-bite"></i></span>
+              <div><strong>Persistencia de Sesión (<code>$_SESSION</code>):</strong> Control en servidor de <code>usuario_id</code>, <code>usuario_ci</code> y <code>usuario_rol</code>.</div>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-user-check"></i></span>
+              <div><strong>Control de Cuenta Activa:</strong> Restricción de acceso inmediata a usuarios con estado inactivo.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-right">
+          <div class="device-frame-laptop">
+            <div class="laptop-browser-bar">
+              <div class="browser-dot red"></div><div class="browser-dot yellow"></div><div class="browser-dot green"></div>
+              <div class="browser-url-pill">portal-utu.local/app/login/index.php</div>
+            </div>
+            <div class="mockup-img-container">
+              <img src="assets/app_login.png" alt="Pantalla de Iniciar Sesión" class="real-screenshot-img">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Seguridad</span></div>
+        <div class="footer-pagination"><span class="page-cur">07</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 08: SISTEMA DE 3 ROLES -->
+    <section class="slide" data-slide="8">
+      <div class="slide-bg-decor">
+        <div class="blob-corner-right"></div>
+        <div class="circle-ring-sm"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Control de Privilegios</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-users"></i> Matriz de Roles
+        </div>
+      </div>
+
+      <div class="slide-body" style="flex-direction:column; align-items:flex-start;">
+        <div class="slide-title-area">
+          <div class="slide-number-label">08.</div>
+          <h2 class="slide-title">Sistema de Permisos & <span class="highlight">3 Roles de Usuario</span></h2>
+          <p class="slide-subtitle">Gobernanza de accesos para asegurar la confidencialidad e integridad de la información institucional.</p>
+        </div>
+
+        <div class="cards-grid-3" style="width:100%;">
+          <div class="feature-card" style="border-top:3.5px solid var(--primary);">
+            <div style="font-size:22px; color:var(--primary); margin-bottom:6px;"><i class="fa-solid fa-crown"></i></div>
+            <div class="feature-title" style="color:var(--primary);">Administrador (Rol 1)</div>
+            <div class="feature-desc" style="margin-top:6px;">
+              <strong>Control Total:</strong> Acceso al Panel Admin, altas y bajas de usuarios, modificación de roles, inventario de hardware y métricas gerenciales.
+            </div>
+          </div>
+
+          <div class="feature-card" style="border-top:3.5px solid #0284c7;">
+            <div style="font-size:22px; color:#0284c7; margin-bottom:6px;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div class="feature-title" style="color:#0284c7;">Técnico de Soporte (Rol 2)</div>
+            <div class="feature-desc" style="margin-top:6px;">
+              <strong>Gestión Operativa:</strong> Inventario, atención de tickets de soporte, registro de diagnósticos, soluciones técnicas y actualización de estados.
+            </div>
+          </div>
+
+          <div class="feature-card" style="border-top:3.5px solid #10b981;">
+            <div style="font-size:22px; color:#10b981; margin-bottom:6px;"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="feature-title" style="color:#10b981;">Usuario / Docente (Rol 3)</div>
+            <div class="feature-desc" style="margin-top:6px;">
+              <strong>Mesa de Ayuda Exclusiva:</strong> Apertura de tickets por fallas o solicitudes, seguimiento en tiempo real y consulta de sus solicitudes activas.
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; width:100%; margin-top:8px;">
+          <span style="font-size:11.5px; color:#1e40af; font-weight:700;"><i class="fa-solid fa-shield-halved"></i> Seguridad a Nivel de Servidor:</span>
+          <span style="font-size:11.5px; color:#334155;"> Cada página PHP valida el rol de sesión antes de renderizar vistas o permitir transacciones en la base de datos.</span>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Roles & Permisos</span></div>
+        <div class="footer-pagination"><span class="page-cur">08</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 09: PANEL ADMIN EN VIVO -->
+    <section class="slide" data-slide="9">
+      <div class="slide-bg-decor">
+        <div class="blob-left-accent"></div>
+      </div>
+
+      <div class="slide-header">
+        <div class="header-left">
+          <div class="project-brand-pill"><div class="brand-icon">M</div><span class="brand-text">MIUY STUDIO</span></div>
+          <span class="section-tag">Módulo de Administración</span>
+        </div>
+        <div class="section-tag" style="background:#eff6ff; color:var(--primary); font-weight:700;">
+          <i class="fa-solid fa-users-gear"></i> Panel Admin
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-left">
+          <div class="slide-title-area">
+            <div class="slide-number-label">09.</div>
+            <h2 class="slide-title">Panel Admin: <span class="highlight">Gestión de Usuarios</span></h2>
+            <p class="slide-subtitle">Módulo exclusivo del Administrador para el control de cuentas institucionales.</p>
+          </div>
+
+          <ul class="custom-list">
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-user-plus"></i></span>
+              <div><strong>Alta de Nuevos Usuarios:</strong> Registro inmediato especificando Cédula, Nombre, Apellido, Contraseña y Rol inicial.</div>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-arrows-rotate"></i></span>
+              <div><strong>Cambio Dinámico de Rol:</strong> Modificación instantánea de privilegios (ej. ascender un usuario a Técnico o Admin).</div>
+            </li>
+            <li>
+              <span class="list-icon"><i class="fa-solid fa-user-slash"></i></span>
+              <div><strong>Activación & Desactivación:</strong> Inhabilitación segura de cuentas con un solo clic, preservando el historial de auditoría.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-right">
+          <div class="device-frame-laptop">
+            <div class="laptop-browser-bar">
+              <div class="browser-dot red"></div><div class="browser-dot yellow"></div><div class="browser-dot green"></div>
+              <div class="browser-url-pill">modulos/admin/administrar_usuarios.php</div>
+            </div>
+            <div class="mockup-img-container">
+              <img src="assets/app_admin.png" alt="Panel Admin de Usuarios" class="real-screenshot-img">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="footer-school-info"><span class="footer-school-text">UTU Florida • Panel Admin</span></div>
+        <div class="footer-pagination"><span class="page-cur">09</span><span class="page-sep">/</span><span class="page-total">24</span></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- HUD CONTROLLER LOCAL -->
+  <div id="hud-controller" class="speaker-hud">
+    <a href="index.html" class="hud-btn hud-home-btn" title="Volver a la Presentación General" target="_top">
+      <i class="fa-solid fa-house"></i> <span>General</span>
+    </a>
+    <button class="hud-btn" id="btn-prev" title="Anterior (← o RePág)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div id="hud-slide-indicator" class="hud-slide-indicator">01 / 01</div>
+    <button class="hud-btn" id="btn-next" title="Siguiente (→, Espacio o AvPág)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button class="hud-btn" id="btn-fullscreen" title="Pantalla Completa (Tecla F)">
+      <i class="fa-solid fa-expand"></i>
+    </button>
+  </div>
+
+</div>
+
+<script src="deck-common.js"></script>
+</body>
+</html>
